@@ -1,0 +1,29 @@
+{
+  "name": "familiar-ts",
+  "version": "0.0.1",
+  "description": "A Typescript library to provide different functional utilities.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phillui-37/FamiliarTS.git"
+  },
+  "keywords": [
+    "FP",
+    "typescript",
+    "TS"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["/dist"],
+  "author": "Phil Lui",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/phillui-37/FamiliarTS/issues"
+  },
+  "homepage": "https://github.com/phillui-37/FamiliarTS#readme",
+  "devDependencies": {
+    "typescript": "^4.8.2"
+  }
+}
