@@ -29,16 +29,19 @@ export class Just<T> implements IMaybe<T> {
   constructor(readonly t: T) {}
 
   map<U>(fn: (t: T) => U): IMaybe<U> {
+    /* @ts-ignore */
     return just(fn(this.t))
   }
 
   replace<U>(u: U): IMaybe<U> {
+    /* @ts-ignore */
     return just(u)
   }
 
   apply<R, U>(mr: IMaybe<R>): IMaybe<U> {
     if (typeof this.t !== 'function')
       throw new TypeError("apply not applicable")
+    /* @ts-ignore */
     return just(this.t(mr.get()))
   }
 
@@ -80,6 +83,7 @@ export class Just<T> implements IMaybe<T> {
   zip<U>(other: IMaybe<U>): IMaybe<Tuple2<T, U>> {
     /* @ts-ignore */
     if (other.isNothing) return nothing
+    /* @ts-ignore */
     return just(tuple2(this.t, other.get()))
   }
 
@@ -107,14 +111,17 @@ export class Nothing implements IMaybe<never> {
   }
 
   replace<U>(u: U): IMaybe<U> {
+    /* @ts-ignore */
     return this
   }
 
   apply<R, U>(mr: IMaybe<R>): IMaybe<U> {
+    /* @ts-ignore */
     return this
   }
 
   discardSelf<U>(other: IMaybe<U>): IMaybe<U> {
+    /* @ts-ignore */
     return this
   }
 
@@ -127,10 +134,12 @@ export class Nothing implements IMaybe<never> {
   }
 
   bind<U>(fn: (t: never) => IMaybe<U>): IMaybe<U> {
+    /* @ts-ignore */
     return this
   }
 
   and<U>(other: IMaybe<U>): IMaybe<U> {
+    /* @ts-ignore */
     return this
   }
 
@@ -147,6 +156,7 @@ export class Nothing implements IMaybe<never> {
   }
 
   zip<U>(other: IMaybe<U>): IMaybe<Tuple2<never, U>> {
+    /* @ts-ignore */
     return this
   }
 
@@ -173,6 +183,7 @@ export namespace Maybe {
   export function isJust<T>(m: Maybe<T>): m is Just<T> { return m.isJust }
   export function of<T>(t: T): Maybe<T> {
     if (t === undefined || t === null) return nothing as Maybe<T>
+    /* @ts-ignore */
     else return new Just(t)
   }
 

@@ -37,7 +37,6 @@ class Just {
         return other;
     }
     xor(other) {
-        /* @ts-ignore */
         if (other.isJust)
             return exports.nothing;
         else
@@ -47,11 +46,9 @@ class Just {
         return this;
     }
     filter(predicate) {
-        /* @ts-ignore */
         return predicate(this.t) ? this : exports.nothing;
     }
     zip(other) {
-        /* @ts-ignore */
         if (other.isNothing)
             return exports.nothing;
         return (0, exports.just)((0, tuple_1.tuple2)(this.t, other.get()));
@@ -133,7 +130,6 @@ var Maybe;
     }
     Maybe.of = of;
     function flatten(m) {
-        /*  */
         if (isNothing(m))
             return m;
         else

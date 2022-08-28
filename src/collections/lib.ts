@@ -1,1 +1,2 @@
-import FVector from "./vec";
+export * from "./vec";
+export * from "./tuple";
