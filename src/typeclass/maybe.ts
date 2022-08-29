@@ -29,19 +29,16 @@ export class Just<T> implements IMaybe<T> {
   constructor(readonly t: T) {}
 
   map<U>(fn: (t: T) => U): IMaybe<U> {
-    /* @ts-ignore */
     return just(fn(this.t))
   }
 
   replace<U>(u: U): IMaybe<U> {
-    /* @ts-ignore */
     return just(u)
   }
 
   apply<R, U>(mr: IMaybe<R>): IMaybe<U> {
     if (typeof this.t !== 'function')
       throw new TypeError("apply not applicable")
-    /* @ts-ignore */
     return just(this.t(mr.get()))
   }
 
@@ -66,7 +63,6 @@ export class Just<T> implements IMaybe<T> {
   }
 
   xor(other: IMaybe<T>): IMaybe<T> {
-    /* @ts-ignore */
     if (other.isJust) return nothing
     else return other
   }
@@ -76,14 +72,11 @@ export class Just<T> implements IMaybe<T> {
   }
 
   filter(predicate: (t: T) => boolean): IMaybe<T> {
-    /* @ts-ignore */
     return predicate(this.t) ? this : nothing
   }
 
   zip<U>(other: IMaybe<U>): IMaybe<Tuple2<T, U>> {
-    /* @ts-ignore */
     if (other.isNothing) return nothing
-    /* @ts-ignore */
     return just(tuple2(this.t, other.get()))
   }
 
@@ -101,31 +94,28 @@ export class Just<T> implements IMaybe<T> {
   toString = () => `Just(${this.t})`
 }
 
-export class Nothing implements IMaybe<never> {
+export class Nothing implements IMaybe<any> {
   private constructor() {}
 
   static instance = new Nothing()
 
-  map<U>(fn: (t: never) => U): IMaybe<never> {
+  map<U>(fn: (t: any) => U): IMaybe<any> {
     return this
   }
 
   replace<U>(u: U): IMaybe<U> {
-    /* @ts-ignore */
     return this
   }
 
   apply<R, U>(mr: IMaybe<R>): IMaybe<U> {
-    /* @ts-ignore */
     return this
   }
 
   discardSelf<U>(other: IMaybe<U>): IMaybe<U> {
-    /* @ts-ignore */
     return this
   }
 
-  discardOther<U>(other: IMaybe<U>): IMaybe<never> {
+  discardOther<U>(other: IMaybe<U>): IMaybe<any> {
     return this
   }
 
@@ -133,13 +123,11 @@ export class Nothing implements IMaybe<never> {
     return other
   }
 
-  bind<U>(fn: (t: never) => IMaybe<U>): IMaybe<U> {
-    /* @ts-ignore */
+  bind<U>(fn: (t: any) => IMaybe<U>): IMaybe<U> {
     return this
   }
 
   and<U>(other: IMaybe<U>): IMaybe<U> {
-    /* @ts-ignore */
     return this
   }
 
@@ -147,16 +135,15 @@ export class Nothing implements IMaybe<never> {
     return other
   }
 
-  orElse(getOther: () => IMaybe<never>): IMaybe<never> {
+  orElse(getOther: () => IMaybe<any>): IMaybe<any> {
     return getOther()
   }
 
-  filter(predicate: (t: never) => boolean): IMaybe<never> {
+  filter(predicate: (t: any) => boolean): IMaybe<any> {
     return this
   }
 
-  zip<U>(other: IMaybe<U>): IMaybe<Tuple2<never, U>> {
-    /* @ts-ignore */
+  zip<U>(other: IMaybe<U>): IMaybe<Tuple2<any, U>> {
     return this
   }
 
@@ -166,7 +153,7 @@ export class Nothing implements IMaybe<never> {
   getOr<T>(fallback: T): T {
     return fallback
   }
-  getOrElse(getFallback: () => never): never {
+  getOrElse<T>(getFallback: () => T): T {
     return getFallback()
   }
 
@@ -183,12 +170,10 @@ export namespace Maybe {
   export function isJust<T>(m: Maybe<T>): m is Just<T> { return m.isJust }
   export function of<T>(t: T): Maybe<T> {
     if (t === undefined || t === null) return nothing as Maybe<T>
-    /* @ts-ignore */
-    else return new Just(t)
+    else return just(t)
   }
 
   export function flatten<T>(m: Maybe<Maybe<T>>): Maybe<T> {
-    /*  */
     if (isNothing(m)) return m
     else return m.get()
   }
