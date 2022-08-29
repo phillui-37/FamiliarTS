@@ -1,12 +1,11 @@
 declare global {
   interface String {
-    test(): void
+    remove(pattern: RegExp | string): String
   }
 }
 
-String.prototype.test = function() {
-  let v = String(this)
-  console.log(v)
+String.prototype.remove = function (pattern) {
+  return this.replaceAll(pattern, '')
 }
 
-export {}
+export { }

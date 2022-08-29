@@ -1,9 +1,10 @@
 export declare type Eq<T> = {
+    /// compare by ===
     eq: (other: T) => boolean
     ne: (other: T) => boolean
 }
 
-export declare enum Ordering {
+export enum Ordering {
     LT = -1,
     EQ = 0,
     GT = 1,

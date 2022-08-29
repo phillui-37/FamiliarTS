@@ -1,4 +1,4 @@
-import { isEq, isOrd, Ordering, Eq, Ord } from "../basic/lib"
+import { isEq, isOrd, Ordering, Ord } from "../basic/lib"
 import { eq } from "../util/lib"
 import '../stdExt/array'
 
