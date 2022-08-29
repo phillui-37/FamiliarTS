@@ -1,4 +1,4 @@
-export declare type Eq<T extends Eq<T>> = {
+export declare type Eq<T> = {
     eq: (other: T) => boolean
     ne: (other: T) => boolean
 }
@@ -9,7 +9,7 @@ export declare enum Ordering {
     GT = 1,
 }
 
-export declare type Ord<T extends Ord<T>> = Eq<T> & {
+export declare type Ord<T> = Eq<T> & {
     compare: (other: T) => Ordering
     lt: (other: T) => boolean
     le: (other: T) => boolean

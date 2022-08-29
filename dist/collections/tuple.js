@@ -4,15 +4,8 @@ exports.tuple10 = exports.tuple9 = exports.tuple8 = exports.tuple7 = exports.tup
 const lib_1 = require("../basic/lib");
 const lib_2 = require("../util/lib");
 require("../stdExt/array");
-const eqChecker = (ls1, ls2) => {
-    return ls1.zip(ls2)
-        .map(t2 => {
-        if ((0, lib_1.isEq)(t2._1))
-            return t2._1.eq(t2._2);
-        else
-            return t2._1 === t2._2;
-    })
-        .all((0, lib_2.eq)(true));
+const eqChecker = (item1, item2) => {
+    return (0, lib_1.isEq)(item1) && (0, lib_1.isEq)(item2) ? item1.eq(item2) : item1 === item2;
 };
 const orderChecker = (obj1, obj2) => {
     if ((0, lib_1.isOrd)(obj2) && (0, lib_1.isOrd)(obj1)) {
@@ -26,9 +19,7 @@ class Tuple2 {
     constructor(_1, _2) {
         this._1 = _1;
         this._2 = _2;
-        this.eq = (other) => {
-            return eqChecker(this.toList(), other.toList());
-        };
+        this.eq = (other) => eqChecker(this._1, other._1) && eqChecker(this._2, other._2);
         this.ne = (other) => !this.eq(other);
         this.compare = (other) => {
             const order = orderChecker(this._1, other._1);
@@ -36,27 +27,14 @@ class Tuple2 {
                 return order;
             return orderChecker(this._2, other._2);
         };
-        this.lt = (other) => {
-            return this.compare(other) === lib_1.Ordering.LT;
-        };
-        this.le = (other) => {
-            return this.compare(other) in [lib_1.Ordering.EQ, lib_1.Ordering.LT];
-        };
-        this.ge = (other) => {
-            return this.compare(other) in [lib_1.Ordering.EQ, lib_1.Ordering.GT];
-        };
-        this.gt = (other) => {
-            return this.compare(other) === lib_1.Ordering.GT;
-        };
-        this.max = (other) => {
-            return this.ge(other) ? this : other;
-        };
-        this.min = (other) => {
-            return this.le(other) ? this : other;
-        };
+        this.lt = (other) => this.compare(other) === lib_1.Ordering.LT;
+        this.le = (other) => this.compare(other) in [lib_1.Ordering.EQ, lib_1.Ordering.LT];
+        this.ge = (other) => this.compare(other) in [lib_1.Ordering.EQ, lib_1.Ordering.GT];
+        this.gt = (other) => this.compare(other) === lib_1.Ordering.GT;
+        this.max = (other) => this.ge(other) ? this : other;
+        this.min = (other) => this.le(other) ? this : other;
         this.toString = () => `Tuple2(${this._1}, ${this._2})`;
     }
-    toList() { return [this._1, this._2]; }
 }
 exports.Tuple2 = Tuple2;
 class Tuple3 {
@@ -64,6 +42,21 @@ class Tuple3 {
         this._1 = _1;
         this._2 = _2;
         this._3 = _3;
+        this.eq = (other) => eqChecker(this._1, other._1) && eqChecker(this._2, other._2) && eqChecker(this._3, other._3);
+        this.ne = (other) => !this.eq(other);
+        this.compare = (other) => {
+            return [
+                orderChecker(this._1, other._1),
+                orderChecker(this._2, other._2),
+                orderChecker(this._3, other._3)
+            ].reduce((acc, item) => acc === lib_1.Ordering.EQ ? acc : item);
+        };
+        this.lt = (other) => this.compare(other) === lib_1.Ordering.LT;
+        this.le = (other) => this.compare(other) in [lib_1.Ordering.EQ, lib_1.Ordering.LT];
+        this.ge = (other) => this.compare(other) in [lib_1.Ordering.EQ, lib_1.Ordering.GT];
+        this.gt = (other) => this.compare(other) === lib_1.Ordering.GT;
+        this.max = (other) => this.ge(other) ? this : other;
+        this.min = (other) => this.le(other) ? this : other;
         this.toString = () => `Tuple3(${this._1}, ${this._2}, ${this._3})`;
     }
 }
@@ -74,6 +67,22 @@ class Tuple4 {
         this._2 = _2;
         this._3 = _3;
         this._4 = _4;
+        this.eq = (other) => [eqChecker(this._1, other._1), eqChecker(this._2, other._2), eqChecker(this._3, other._3), eqChecker(this._4, other._4)].all((0, lib_2.eq)(true));
+        this.ne = (other) => !this.eq(other);
+        this.compare = (other) => {
+            return [
+                orderChecker(this._1, other._1),
+                orderChecker(this._2, other._2),
+                orderChecker(this._3, other._3),
+                orderChecker(this._4, other._4),
+            ].reduce((acc, item) => acc === lib_1.Ordering.EQ ? acc : item);
+        };
+        this.lt = (other) => this.compare(other) === lib_1.Ordering.LT;
+        this.le = (other) => this.compare(other) in [lib_1.Ordering.EQ, lib_1.Ordering.LT];
+        this.ge = (other) => this.compare(other) in [lib_1.Ordering.EQ, lib_1.Ordering.GT];
+        this.gt = (other) => this.compare(other) === lib_1.Ordering.GT;
+        this.max = (other) => this.ge(other) ? this : other;
+        this.min = (other) => this.le(other) ? this : other;
         this.toString = () => `Tuple4(${this._1}, ${this._2}, ${this._3}, ${this._4})`;
     }
 }
@@ -85,6 +94,23 @@ class Tuple5 {
         this._3 = _3;
         this._4 = _4;
         this._5 = _5;
+        this.eq = (other) => [eqChecker(this._1, other._1), eqChecker(this._2, other._2), eqChecker(this._3, other._3), eqChecker(this._4, other._4), eqChecker(this._5, other._5)].all((0, lib_2.eq)(true));
+        this.ne = (other) => !this.eq(other);
+        this.compare = (other) => {
+            return [
+                orderChecker(this._1, other._1),
+                orderChecker(this._2, other._2),
+                orderChecker(this._3, other._3),
+                orderChecker(this._4, other._4),
+                orderChecker(this._5, other._5),
+            ].reduce((acc, item) => acc === lib_1.Ordering.EQ ? acc : item);
+        };
+        this.lt = (other) => this.compare(other) === lib_1.Ordering.LT;
+        this.le = (other) => this.compare(other) in [lib_1.Ordering.EQ, lib_1.Ordering.LT];
+        this.ge = (other) => this.compare(other) in [lib_1.Ordering.EQ, lib_1.Ordering.GT];
+        this.gt = (other) => this.compare(other) === lib_1.Ordering.GT;
+        this.max = (other) => this.ge(other) ? this : other;
+        this.min = (other) => this.le(other) ? this : other;
         this.toString = () => `Tuple5(${this._1}, ${this._2}, ${this._3}, ${this._4}, ${this._5})`;
     }
 }
@@ -97,6 +123,24 @@ class Tuple6 {
         this._4 = _4;
         this._5 = _5;
         this._6 = _6;
+        this.eq = (other) => [eqChecker(this._1, other._1), eqChecker(this._2, other._2), eqChecker(this._3, other._3), eqChecker(this._4, other._4), eqChecker(this._5, other._5), eqChecker(this._6, other._6)].all((0, lib_2.eq)(true));
+        this.ne = (other) => !this.eq(other);
+        this.compare = (other) => {
+            return [
+                orderChecker(this._1, other._1),
+                orderChecker(this._2, other._2),
+                orderChecker(this._3, other._3),
+                orderChecker(this._4, other._4),
+                orderChecker(this._5, other._5),
+                orderChecker(this._6, other._6),
+            ].reduce((acc, item) => acc === lib_1.Ordering.EQ ? acc : item);
+        };
+        this.lt = (other) => this.compare(other) === lib_1.Ordering.LT;
+        this.le = (other) => this.compare(other) in [lib_1.Ordering.EQ, lib_1.Ordering.LT];
+        this.ge = (other) => this.compare(other) in [lib_1.Ordering.EQ, lib_1.Ordering.GT];
+        this.gt = (other) => this.compare(other) === lib_1.Ordering.GT;
+        this.max = (other) => this.ge(other) ? this : other;
+        this.min = (other) => this.le(other) ? this : other;
         this.toString = () => `Tuple6(${this._1}, ${this._2}, ${this._3}, ${this._4}, ${this._5}, ${this._6})`;
     }
 }
@@ -110,6 +154,25 @@ class Tuple7 {
         this._5 = _5;
         this._6 = _6;
         this._7 = _7;
+        this.eq = (other) => [eqChecker(this._1, other._1), eqChecker(this._2, other._2), eqChecker(this._3, other._3), eqChecker(this._4, other._4), eqChecker(this._5, other._5), eqChecker(this._6, other._6), eqChecker(this._7, other._7)].all((0, lib_2.eq)(true));
+        this.ne = (other) => !this.eq(other);
+        this.compare = (other) => {
+            return [
+                orderChecker(this._1, other._1),
+                orderChecker(this._2, other._2),
+                orderChecker(this._3, other._3),
+                orderChecker(this._4, other._4),
+                orderChecker(this._5, other._5),
+                orderChecker(this._6, other._6),
+                orderChecker(this._7, other._7),
+            ].reduce((acc, item) => acc === lib_1.Ordering.EQ ? acc : item);
+        };
+        this.lt = (other) => this.compare(other) === lib_1.Ordering.LT;
+        this.le = (other) => this.compare(other) in [lib_1.Ordering.EQ, lib_1.Ordering.LT];
+        this.ge = (other) => this.compare(other) in [lib_1.Ordering.EQ, lib_1.Ordering.GT];
+        this.gt = (other) => this.compare(other) === lib_1.Ordering.GT;
+        this.max = (other) => this.ge(other) ? this : other;
+        this.min = (other) => this.le(other) ? this : other;
         this.toString = () => `Tuple7(${this._1}, ${this._2}, ${this._3}, ${this._4}, ${this._5}, ${this._6}, ${this._7})`;
     }
 }
@@ -124,6 +187,35 @@ class Tuple8 {
         this._6 = _6;
         this._7 = _7;
         this._8 = _8;
+        this.eq = (other) => [
+            eqChecker(this._1, other._1),
+            eqChecker(this._2, other._2),
+            eqChecker(this._3, other._3),
+            eqChecker(this._4, other._4),
+            eqChecker(this._5, other._5),
+            eqChecker(this._6, other._6),
+            eqChecker(this._7, other._7),
+            eqChecker(this._8, other._8),
+        ].all((0, lib_2.eq)(true));
+        this.ne = (other) => !this.eq(other);
+        this.compare = (other) => {
+            return [
+                orderChecker(this._1, other._1),
+                orderChecker(this._2, other._2),
+                orderChecker(this._3, other._3),
+                orderChecker(this._4, other._4),
+                orderChecker(this._5, other._5),
+                orderChecker(this._6, other._6),
+                orderChecker(this._7, other._7),
+                orderChecker(this._8, other._8),
+            ].reduce((acc, item) => acc === lib_1.Ordering.EQ ? acc : item);
+        };
+        this.lt = (other) => this.compare(other) === lib_1.Ordering.LT;
+        this.le = (other) => this.compare(other) in [lib_1.Ordering.EQ, lib_1.Ordering.LT];
+        this.ge = (other) => this.compare(other) in [lib_1.Ordering.EQ, lib_1.Ordering.GT];
+        this.gt = (other) => this.compare(other) === lib_1.Ordering.GT;
+        this.max = (other) => this.ge(other) ? this : other;
+        this.min = (other) => this.le(other) ? this : other;
         this.toString = () => `Tuple8(${this._1}, ${this._2}, ${this._3}, ${this._4}, ${this._5}, ${this._6}, ${this._7}, ${this._8})`;
     }
 }
@@ -139,6 +231,37 @@ class Tuple9 {
         this._7 = _7;
         this._8 = _8;
         this._9 = _9;
+        this.eq = (other) => [
+            eqChecker(this._1, other._1),
+            eqChecker(this._2, other._2),
+            eqChecker(this._3, other._3),
+            eqChecker(this._4, other._4),
+            eqChecker(this._5, other._5),
+            eqChecker(this._6, other._6),
+            eqChecker(this._7, other._7),
+            eqChecker(this._8, other._8),
+            eqChecker(this._9, other._9)
+        ].all((0, lib_2.eq)(true));
+        this.ne = (other) => !this.eq(other);
+        this.compare = (other) => {
+            return [
+                orderChecker(this._1, other._1),
+                orderChecker(this._2, other._2),
+                orderChecker(this._3, other._3),
+                orderChecker(this._4, other._4),
+                orderChecker(this._5, other._5),
+                orderChecker(this._6, other._6),
+                orderChecker(this._7, other._7),
+                orderChecker(this._8, other._8),
+                orderChecker(this._9, other._9),
+            ].reduce((acc, item) => acc === lib_1.Ordering.EQ ? acc : item);
+        };
+        this.lt = (other) => this.compare(other) === lib_1.Ordering.LT;
+        this.le = (other) => this.compare(other) in [lib_1.Ordering.EQ, lib_1.Ordering.LT];
+        this.ge = (other) => this.compare(other) in [lib_1.Ordering.EQ, lib_1.Ordering.GT];
+        this.gt = (other) => this.compare(other) === lib_1.Ordering.GT;
+        this.max = (other) => this.ge(other) ? this : other;
+        this.min = (other) => this.le(other) ? this : other;
         this.toString = () => `Tuple9(${this._1}, ${this._2}, ${this._3}, ${this._4}, ${this._5}, ${this._6}, ${this._7}, ${this._8}, ${this._9})`;
     }
 }
@@ -155,6 +278,39 @@ class Tuple10 {
         this._8 = _8;
         this._9 = _9;
         this._10 = _10;
+        this.eq = (other) => [
+            eqChecker(this._1, other._1),
+            eqChecker(this._2, other._2),
+            eqChecker(this._3, other._3),
+            eqChecker(this._4, other._4),
+            eqChecker(this._5, other._5),
+            eqChecker(this._6, other._6),
+            eqChecker(this._7, other._7),
+            eqChecker(this._8, other._8),
+            eqChecker(this._9, other._9),
+            eqChecker(this._10, other._10),
+        ].all((0, lib_2.eq)(true));
+        this.ne = (other) => !this.eq(other);
+        this.compare = (other) => {
+            return [
+                orderChecker(this._1, other._1),
+                orderChecker(this._2, other._2),
+                orderChecker(this._3, other._3),
+                orderChecker(this._4, other._4),
+                orderChecker(this._5, other._5),
+                orderChecker(this._6, other._6),
+                orderChecker(this._7, other._7),
+                orderChecker(this._8, other._8),
+                orderChecker(this._9, other._9),
+                orderChecker(this._10, other._10),
+            ].reduce((acc, item) => acc === lib_1.Ordering.EQ ? acc : item);
+        };
+        this.lt = (other) => this.compare(other) === lib_1.Ordering.LT;
+        this.le = (other) => this.compare(other) in [lib_1.Ordering.EQ, lib_1.Ordering.LT];
+        this.ge = (other) => this.compare(other) in [lib_1.Ordering.EQ, lib_1.Ordering.GT];
+        this.gt = (other) => this.compare(other) === lib_1.Ordering.GT;
+        this.max = (other) => this.ge(other) ? this : other;
+        this.min = (other) => this.le(other) ? this : other;
         this.toString = () => `Tuple10(${this._1}, ${this._2}, ${this._3}, ${this._4}, ${this._5}, ${this._6}, ${this._7}, ${this._8}, ${this._9}, ${this._10})`;
     }
 }
