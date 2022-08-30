@@ -8,9 +8,9 @@ const eqChecker = <T>(item1: T, item2: T) => {
 
 const orderChecker = <T>(obj1: T, obj2: T) => {
     if (isOrd(obj2) && isOrd(obj1)) {
-        /* @ts-ignore */
         return obj2.compare(obj1)
     } else {
+        console.log(obj1, obj2)
         return obj1 < obj2 ? Ordering.LT : obj1 > obj2 ? Ordering.GT : Ordering.EQ
     }
 }
@@ -25,8 +25,8 @@ export class Tuple2<T1, T2> implements Ord<Tuple2<T1, T2>> {
         return orderChecker(this._2, other._2)
     }
     lt = (other: Tuple2<T1, T2>) => this.compare(other) === Ordering.LT
-    le = (other: Tuple2<T1, T2>) => this.compare(other) in [Ordering.EQ, Ordering.LT]
-    ge = (other: Tuple2<T1, T2>) => this.compare(other) in [Ordering.EQ, Ordering.GT]
+    le = (other: Tuple2<T1, T2>) => [Ordering.EQ, Ordering.LT].includes(this.compare(other))
+    ge = (other: Tuple2<T1, T2>) => [Ordering.EQ, Ordering.GT].includes(this.compare(other))
     gt = (other: Tuple2<T1, T2>) => this.compare(other) === Ordering.GT
     max = (other: Tuple2<T1, T2>) => this.ge(other) ? this : other
     min = (other: Tuple2<T1, T2>) => this.le(other) ? this : other
@@ -45,8 +45,8 @@ export class Tuple3<T1, T2, T3> implements Ord<Tuple3<T1, T2, T3>> {
         ].reduce((acc, item) => acc === Ordering.EQ ? acc : item)
     }
     lt = (other: Tuple3<T1, T2, T3>) => this.compare(other) === Ordering.LT
-    le = (other: Tuple3<T1, T2, T3>) => this.compare(other) in [Ordering.EQ, Ordering.LT]
-    ge = (other: Tuple3<T1, T2, T3>) => this.compare(other) in [Ordering.EQ, Ordering.GT]
+    le = (other: Tuple3<T1, T2, T3>) => [Ordering.EQ, Ordering.LT].includes(this.compare(other))
+    ge = (other: Tuple3<T1, T2, T3>) => [Ordering.EQ, Ordering.GT].includes(this.compare(other))
     gt = (other: Tuple3<T1, T2, T3>) => this.compare(other) === Ordering.GT
     max = (other: Tuple3<T1, T2, T3>) => this.ge(other) ? this : other
     min = (other: Tuple3<T1, T2, T3>) => this.le(other) ? this : other
@@ -66,8 +66,8 @@ export class Tuple4<T1, T2, T3, T4> implements Ord<Tuple4<T1, T2, T3, T4>> {
         ].reduce((acc, item) => acc === Ordering.EQ ? acc : item)
     }
     lt = (other: Tuple4<T1, T2, T3, T4>) => this.compare(other) === Ordering.LT
-    le = (other: Tuple4<T1, T2, T3, T4>) => this.compare(other) in [Ordering.EQ, Ordering.LT]
-    ge = (other: Tuple4<T1, T2, T3, T4>) => this.compare(other) in [Ordering.EQ, Ordering.GT]
+    le = (other: Tuple4<T1, T2, T3, T4>) => [Ordering.EQ, Ordering.LT].includes(this.compare(other))
+    ge = (other: Tuple4<T1, T2, T3, T4>) => [Ordering.EQ, Ordering.GT].includes(this.compare(other))
     gt = (other: Tuple4<T1, T2, T3, T4>) => this.compare(other) === Ordering.GT
     max = (other: Tuple4<T1, T2, T3, T4>) => this.ge(other) ? this : other
     min = (other: Tuple4<T1, T2, T3, T4>) => this.le(other) ? this : other
@@ -88,8 +88,8 @@ export class Tuple5<T1, T2, T3, T4, T5> implements Ord<Tuple5<T1, T2, T3, T4, T5
         ].reduce((acc, item) => acc === Ordering.EQ ? acc : item)
     }
     lt = (other: Tuple5<T1, T2, T3, T4, T5>) => this.compare(other) === Ordering.LT
-    le = (other: Tuple5<T1, T2, T3, T4, T5>) => this.compare(other) in [Ordering.EQ, Ordering.LT]
-    ge = (other: Tuple5<T1, T2, T3, T4, T5>) => this.compare(other) in [Ordering.EQ, Ordering.GT]
+    le = (other: Tuple5<T1, T2, T3, T4, T5>) => [Ordering.EQ, Ordering.LT].includes(this.compare(other))
+    ge = (other: Tuple5<T1, T2, T3, T4, T5>) => [Ordering.EQ, Ordering.GT].includes(this.compare(other))
     gt = (other: Tuple5<T1, T2, T3, T4, T5>) => this.compare(other) === Ordering.GT
     max = (other: Tuple5<T1, T2, T3, T4, T5>) => this.ge(other) ? this : other
     min = (other: Tuple5<T1, T2, T3, T4, T5>) => this.le(other) ? this : other
@@ -111,8 +111,8 @@ export class Tuple6<T1, T2, T3, T4, T5, T6> implements Ord<Tuple6<T1, T2, T3, T4
         ].reduce((acc, item) => acc === Ordering.EQ ? acc : item)
     }
     lt = (other: Tuple6<T1, T2, T3, T4, T5, T6>) => this.compare(other) === Ordering.LT
-    le = (other: Tuple6<T1, T2, T3, T4, T5, T6>) => this.compare(other) in [Ordering.EQ, Ordering.LT]
-    ge = (other: Tuple6<T1, T2, T3, T4, T5, T6>) => this.compare(other) in [Ordering.EQ, Ordering.GT]
+    le = (other: Tuple6<T1, T2, T3, T4, T5, T6>) => [Ordering.EQ, Ordering.LT].includes(this.compare(other))
+    ge = (other: Tuple6<T1, T2, T3, T4, T5, T6>) => [Ordering.EQ, Ordering.GT].includes(this.compare(other))
     gt = (other: Tuple6<T1, T2, T3, T4, T5, T6>) => this.compare(other) === Ordering.GT
     max = (other: Tuple6<T1, T2, T3, T4, T5, T6>) => this.ge(other) ? this : other
     min = (other: Tuple6<T1, T2, T3, T4, T5, T6>) => this.le(other) ? this : other
@@ -135,8 +135,8 @@ export class Tuple7<T1, T2, T3, T4, T5, T6, T7> implements Ord<Tuple7<T1, T2, T3
         ].reduce((acc, item) => acc === Ordering.EQ ? acc : item)
     }
     lt = (other: Tuple7<T1, T2, T3, T4, T5, T6, T7>) => this.compare(other) === Ordering.LT
-    le = (other: Tuple7<T1, T2, T3, T4, T5, T6, T7>) => this.compare(other) in [Ordering.EQ, Ordering.LT]
-    ge = (other: Tuple7<T1, T2, T3, T4, T5, T6, T7>) => this.compare(other) in [Ordering.EQ, Ordering.GT]
+    le = (other: Tuple7<T1, T2, T3, T4, T5, T6, T7>) => [Ordering.EQ, Ordering.LT].includes(this.compare(other))
+    ge = (other: Tuple7<T1, T2, T3, T4, T5, T6, T7>) => [Ordering.EQ, Ordering.GT].includes(this.compare(other))
     gt = (other: Tuple7<T1, T2, T3, T4, T5, T6, T7>) => this.compare(other) === Ordering.GT
     max = (other: Tuple7<T1, T2, T3, T4, T5, T6, T7>) => this.ge(other) ? this : other
     min = (other: Tuple7<T1, T2, T3, T4, T5, T6, T7>) => this.le(other) ? this : other
@@ -169,8 +169,8 @@ export class Tuple8<T1, T2, T3, T4, T5, T6, T7, T8> implements Ord<Tuple8<T1, T2
         ].reduce((acc, item) => acc === Ordering.EQ ? acc : item)
     }
     lt = (other: Tuple8<T1, T2, T3, T4, T5, T6, T7, T8>) => this.compare(other) === Ordering.LT
-    le = (other: Tuple8<T1, T2, T3, T4, T5, T6, T7, T8>) => this.compare(other) in [Ordering.EQ, Ordering.LT]
-    ge = (other: Tuple8<T1, T2, T3, T4, T5, T6, T7, T8>) => this.compare(other) in [Ordering.EQ, Ordering.GT]
+    le = (other: Tuple8<T1, T2, T3, T4, T5, T6, T7, T8>) => [Ordering.EQ, Ordering.LT].includes(this.compare(other))
+    ge = (other: Tuple8<T1, T2, T3, T4, T5, T6, T7, T8>) => [Ordering.EQ, Ordering.GT].includes(this.compare(other))
     gt = (other: Tuple8<T1, T2, T3, T4, T5, T6, T7, T8>) => this.compare(other) === Ordering.GT
     max = (other: Tuple8<T1, T2, T3, T4, T5, T6, T7, T8>) => this.ge(other) ? this : other
     min = (other: Tuple8<T1, T2, T3, T4, T5, T6, T7, T8>) => this.le(other) ? this : other
@@ -205,8 +205,8 @@ export class Tuple9<T1, T2, T3, T4, T5, T6, T7, T8, T9> implements Ord<Tuple9<T1
         ].reduce((acc, item) => acc === Ordering.EQ ? acc : item)
     }
     lt = (other: Tuple9<T1, T2, T3, T4, T5, T6, T7, T8, T9>) => this.compare(other) === Ordering.LT
-    le = (other: Tuple9<T1, T2, T3, T4, T5, T6, T7, T8, T9>) => this.compare(other) in [Ordering.EQ, Ordering.LT]
-    ge = (other: Tuple9<T1, T2, T3, T4, T5, T6, T7, T8, T9>) => this.compare(other) in [Ordering.EQ, Ordering.GT]
+    le = (other: Tuple9<T1, T2, T3, T4, T5, T6, T7, T8, T9>) => [Ordering.EQ, Ordering.LT].includes(this.compare(other))
+    ge = (other: Tuple9<T1, T2, T3, T4, T5, T6, T7, T8, T9>) => [Ordering.EQ, Ordering.GT].includes(this.compare(other))
     gt = (other: Tuple9<T1, T2, T3, T4, T5, T6, T7, T8, T9>) => this.compare(other) === Ordering.GT
     max = (other: Tuple9<T1, T2, T3, T4, T5, T6, T7, T8, T9>) => this.ge(other) ? this : other
     min = (other: Tuple9<T1, T2, T3, T4, T5, T6, T7, T8, T9>) => this.le(other) ? this : other
@@ -243,8 +243,8 @@ export class Tuple10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> implements Ord<Tup
         ].reduce((acc, item) => acc === Ordering.EQ ? acc : item)
     }
     lt = (other: Tuple10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>) => this.compare(other) === Ordering.LT
-    le = (other: Tuple10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>) => this.compare(other) in [Ordering.EQ, Ordering.LT]
-    ge = (other: Tuple10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>) => this.compare(other) in [Ordering.EQ, Ordering.GT]
+    le = (other: Tuple10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>) => [Ordering.EQ, Ordering.LT].includes(this.compare(other))
+    ge = (other: Tuple10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>) => [Ordering.EQ, Ordering.GT].includes(this.compare(other))
     gt = (other: Tuple10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>) => this.compare(other) === Ordering.GT
     max = (other: Tuple10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>) => this.ge(other) ? this : other
     min = (other: Tuple10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>) => this.le(other) ? this : other
