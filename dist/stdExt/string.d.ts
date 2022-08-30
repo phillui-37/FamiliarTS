@@ -1,6 +1,6 @@
 declare global {
     interface String {
-        test(): void;
+        remove(pattern: RegExp | string): String;
     }
 }
 export {};

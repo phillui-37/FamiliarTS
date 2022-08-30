@@ -103,5 +103,12 @@ describe('test tuple ord', () => {
         expect(tuple2(1,2).gt(tuple2(0,0))).toBeTruthy()
     })
 
+    test('tuple2 max min', () => {
+        expect(tuple2(1,2).max(tuple2(2,3)).toString()).toBe(tuple2(2,3).toString())
+        expect(tuple2(1,2).min(tuple2(2,3)).toString()).toBe(tuple2(1,2).toString())
+        expect(tuple2(1,2).max(tuple2(1,3)).toString()).toBe(tuple2(1,3).toString())
+        expect(tuple2(1,2).min(tuple2(1,3)).toString()).toBe(tuple2(1,2).toString())
+    })
+
     test('tuple3-10 ord is similar to tuple2, bypass', () => {})
 })

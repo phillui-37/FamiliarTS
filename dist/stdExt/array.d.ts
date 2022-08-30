@@ -1,4 +1,4 @@
-import { Tuple2 } from "../collections/lib";
+import { Tuple2 } from "../collections";
 declare global {
     interface Array<T> {
         all(predicate: (t: T) => boolean): boolean;

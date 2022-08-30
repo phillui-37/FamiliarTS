@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Maybe = exports.just = exports.nothing = exports.Nothing = exports.Just = void 0;
-const tuple_1 = require("../collections/tuple");
+const basic_1 = require("../basic");
+const collections_1 = require("../collections");
 class Just {
     constructor(t) {
         this.t = t;
@@ -17,16 +18,17 @@ class Just {
         this.or = (other) => this;
         this.bind = (fn) => fn(this.t);
         this.and = (other) => other;
-        this.xor = (other) => other.isJust ? exports.nothing : other;
+        this.xor = (other) => other.isJust ? exports.nothing : this;
         this.orElse = (getOther) => this;
         this.filter = (predicate) => predicate(this.t) ? this : exports.nothing;
-        this.zip = (other) => other.isNothing ? exports.nothing : (0, exports.just)((0, tuple_1.tuple2)(this.t, other.get()));
+        this.zip = (other) => other.isNothing ? exports.nothing : (0, exports.just)((0, collections_1.tuple2)(this.t, other.get()));
         this.isJust = true;
         this.isNothing = false;
         this.get = () => this.t;
         this.getOr = (fallback) => this.t;
         this.getOrElse = (getFallback) => this.t;
-        this.toString = () => `Just(${this.t})`;
+        this.isDisplay = true;
+        this.display = () => `Just(${basic_1.Display.display(this.t)})`;
     }
 }
 exports.Just = Just;
@@ -49,7 +51,8 @@ class Nothing {
         this.get = () => { throw new TypeError("Cannot get value from Nothing"); };
         this.getOr = (fallback) => fallback;
         this.getOrElse = (getFallback) => getFallback();
-        this.toString = () => "Nothing";
+        this.isDisplay = true;
+        this.display = () => "Nothing";
     }
 }
 exports.Nothing = Nothing;

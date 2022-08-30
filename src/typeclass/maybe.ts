@@ -1,6 +1,7 @@
-import { tuple2, Tuple2 } from "../collections/tuple"
+import { Display } from "../basic"
+import { tuple2, Tuple2 } from "../collections"
 
-type IMaybe<T> = {
+type IMaybe<T> = Display & {
   isJust: boolean
   isNothing: boolean
   get(): T
@@ -31,7 +32,7 @@ export class Just<T> implements IMaybe<T> {
   map = <U>(fn: (t: T) => U) => just(fn(this.t))
   replace = <U>(u: U) => just(u)
 
-  apply = <R, U>(mr: IMaybe<R>): IMaybe<U> => {
+  apply = <R, U>(mr: IMaybe<R>): Maybe<U> => {
     if (typeof this.t !== 'function')
       throw new TypeError("apply not applicable")
     return just(this.t(mr.get()))
@@ -42,16 +43,17 @@ export class Just<T> implements IMaybe<T> {
   or = (other: IMaybe<T>) => this
   bind = <U>(fn: (t: T) => IMaybe<U>) => fn(this.t)
   and = <U>(other: IMaybe<U>) => other
-  xor = (other: IMaybe<T>) => other.isJust ? nothing : other
+  xor = (other: IMaybe<T>): Maybe<T> => other.isJust ? nothing : this
   orElse = (getOther: () => IMaybe<T>) => this
-  filter = (predicate: (t: T) => boolean): IMaybe<T> => predicate(this.t) ? this : nothing
-  zip = <U>(other: IMaybe<U>): IMaybe<Tuple2<T, U>> => other.isNothing ? nothing : just(tuple2(this.t, other.get()))
+  filter = (predicate: (t: T) => boolean): Maybe<T> => predicate(this.t) ? this : nothing
+  zip = <U>(other: IMaybe<U>): Maybe<Tuple2<T, U>> => other.isNothing ? nothing : just(tuple2(this.t, other.get()))
   isJust = true
   isNothing = false
   get = () => this.t
   getOr = (fallback: T) => this.t
   getOrElse = (getFallback: () => T) => this.t
-  toString = () => `Just(${this.t})`
+  isDisplay = true
+  display = () => `Just(${Display.display(this.t)})`
 }
 
 export class Nothing implements IMaybe<any> {
@@ -69,14 +71,15 @@ export class Nothing implements IMaybe<any> {
   and = <U>(other: IMaybe<U>) => this
   xor = <T>(other: IMaybe<T>) => other
   orElse = <T>(getOther: () => IMaybe<T>) =>getOther()
-  filter = (predicate: (t: any) => boolean) => this
+  filter = <T>(predicate: (t: T) => boolean) => this
   zip = <U>(other: IMaybe<U>) => this
   isJust = false
   isNothing = true
   get = () => {throw new TypeError("Cannot get value from Nothing")}
   getOr = <T>(fallback: T) => fallback
   getOrElse = <T>(getFallback: () => T) => getFallback()
-  toString = () => "Nothing"
+  isDisplay = true
+  display = () => "Nothing"
 }
 
 export type Maybe<T> = Just<T> | Nothing

@@ -1,6 +1,6 @@
-import { Ordering, Ord } from "../basic/lib";
+import { Ordering, Ord, Display } from "../basic";
 import '../stdExt/array';
-export declare class Tuple2<T1, T2> implements Ord<Tuple2<T1, T2>> {
+export declare class Tuple2<T1, T2> implements Ord<Tuple2<T1, T2>>, Display {
     readonly _1: T1;
     readonly _2: T2;
     constructor(_1: T1, _2: T2);
@@ -13,9 +13,10 @@ export declare class Tuple2<T1, T2> implements Ord<Tuple2<T1, T2>> {
     gt: (other: Tuple2<T1, T2>) => boolean;
     max: (other: Tuple2<T1, T2>) => Tuple2<T1, T2>;
     min: (other: Tuple2<T1, T2>) => Tuple2<T1, T2>;
-    toString: () => string;
+    isDisplay: boolean;
+    display: () => string;
 }
-export declare class Tuple3<T1, T2, T3> implements Ord<Tuple3<T1, T2, T3>> {
+export declare class Tuple3<T1, T2, T3> implements Ord<Tuple3<T1, T2, T3>>, Display {
     readonly _1: T1;
     readonly _2: T2;
     readonly _3: T3;
@@ -29,9 +30,10 @@ export declare class Tuple3<T1, T2, T3> implements Ord<Tuple3<T1, T2, T3>> {
     gt: (other: Tuple3<T1, T2, T3>) => boolean;
     max: (other: Tuple3<T1, T2, T3>) => Tuple3<T1, T2, T3>;
     min: (other: Tuple3<T1, T2, T3>) => Tuple3<T1, T2, T3>;
-    toString: () => string;
+    isDisplay: boolean;
+    display: () => string;
 }
-export declare class Tuple4<T1, T2, T3, T4> implements Ord<Tuple4<T1, T2, T3, T4>> {
+export declare class Tuple4<T1, T2, T3, T4> implements Ord<Tuple4<T1, T2, T3, T4>>, Display {
     readonly _1: T1;
     readonly _2: T2;
     readonly _3: T3;
@@ -46,9 +48,10 @@ export declare class Tuple4<T1, T2, T3, T4> implements Ord<Tuple4<T1, T2, T3, T4
     gt: (other: Tuple4<T1, T2, T3, T4>) => boolean;
     max: (other: Tuple4<T1, T2, T3, T4>) => Tuple4<T1, T2, T3, T4>;
     min: (other: Tuple4<T1, T2, T3, T4>) => Tuple4<T1, T2, T3, T4>;
-    toString: () => string;
+    isDisplay: boolean;
+    display: () => string;
 }
-export declare class Tuple5<T1, T2, T3, T4, T5> implements Ord<Tuple5<T1, T2, T3, T4, T5>> {
+export declare class Tuple5<T1, T2, T3, T4, T5> implements Ord<Tuple5<T1, T2, T3, T4, T5>>, Display {
     readonly _1: T1;
     readonly _2: T2;
     readonly _3: T3;
@@ -64,9 +67,10 @@ export declare class Tuple5<T1, T2, T3, T4, T5> implements Ord<Tuple5<T1, T2, T3
     gt: (other: Tuple5<T1, T2, T3, T4, T5>) => boolean;
     max: (other: Tuple5<T1, T2, T3, T4, T5>) => Tuple5<T1, T2, T3, T4, T5>;
     min: (other: Tuple5<T1, T2, T3, T4, T5>) => Tuple5<T1, T2, T3, T4, T5>;
-    toString: () => string;
+    isDisplay: boolean;
+    display: () => string;
 }
-export declare class Tuple6<T1, T2, T3, T4, T5, T6> implements Ord<Tuple6<T1, T2, T3, T4, T5, T6>> {
+export declare class Tuple6<T1, T2, T3, T4, T5, T6> implements Ord<Tuple6<T1, T2, T3, T4, T5, T6>>, Display {
     readonly _1: T1;
     readonly _2: T2;
     readonly _3: T3;
@@ -83,9 +87,10 @@ export declare class Tuple6<T1, T2, T3, T4, T5, T6> implements Ord<Tuple6<T1, T2
     gt: (other: Tuple6<T1, T2, T3, T4, T5, T6>) => boolean;
     max: (other: Tuple6<T1, T2, T3, T4, T5, T6>) => Tuple6<T1, T2, T3, T4, T5, T6>;
     min: (other: Tuple6<T1, T2, T3, T4, T5, T6>) => Tuple6<T1, T2, T3, T4, T5, T6>;
-    toString: () => string;
+    isDisplay: boolean;
+    display: () => string;
 }
-export declare class Tuple7<T1, T2, T3, T4, T5, T6, T7> implements Ord<Tuple7<T1, T2, T3, T4, T5, T6, T7>> {
+export declare class Tuple7<T1, T2, T3, T4, T5, T6, T7> implements Ord<Tuple7<T1, T2, T3, T4, T5, T6, T7>>, Display {
     readonly _1: T1;
     readonly _2: T2;
     readonly _3: T3;
@@ -103,9 +108,10 @@ export declare class Tuple7<T1, T2, T3, T4, T5, T6, T7> implements Ord<Tuple7<T1
     gt: (other: Tuple7<T1, T2, T3, T4, T5, T6, T7>) => boolean;
     max: (other: Tuple7<T1, T2, T3, T4, T5, T6, T7>) => Tuple7<T1, T2, T3, T4, T5, T6, T7>;
     min: (other: Tuple7<T1, T2, T3, T4, T5, T6, T7>) => Tuple7<T1, T2, T3, T4, T5, T6, T7>;
-    toString: () => string;
+    isDisplay: boolean;
+    display: () => string;
 }
-export declare class Tuple8<T1, T2, T3, T4, T5, T6, T7, T8> implements Ord<Tuple8<T1, T2, T3, T4, T5, T6, T7, T8>> {
+export declare class Tuple8<T1, T2, T3, T4, T5, T6, T7, T8> implements Ord<Tuple8<T1, T2, T3, T4, T5, T6, T7, T8>>, Display {
     readonly _1: T1;
     readonly _2: T2;
     readonly _3: T3;
@@ -124,9 +130,10 @@ export declare class Tuple8<T1, T2, T3, T4, T5, T6, T7, T8> implements Ord<Tuple
     gt: (other: Tuple8<T1, T2, T3, T4, T5, T6, T7, T8>) => boolean;
     max: (other: Tuple8<T1, T2, T3, T4, T5, T6, T7, T8>) => Tuple8<T1, T2, T3, T4, T5, T6, T7, T8>;
     min: (other: Tuple8<T1, T2, T3, T4, T5, T6, T7, T8>) => Tuple8<T1, T2, T3, T4, T5, T6, T7, T8>;
-    toString: () => string;
+    isDisplay: boolean;
+    display: () => string;
 }
-export declare class Tuple9<T1, T2, T3, T4, T5, T6, T7, T8, T9> implements Ord<Tuple9<T1, T2, T3, T4, T5, T6, T7, T8, T9>> {
+export declare class Tuple9<T1, T2, T3, T4, T5, T6, T7, T8, T9> implements Ord<Tuple9<T1, T2, T3, T4, T5, T6, T7, T8, T9>>, Display {
     readonly _1: T1;
     readonly _2: T2;
     readonly _3: T3;
@@ -146,9 +153,10 @@ export declare class Tuple9<T1, T2, T3, T4, T5, T6, T7, T8, T9> implements Ord<T
     gt: (other: Tuple9<T1, T2, T3, T4, T5, T6, T7, T8, T9>) => boolean;
     max: (other: Tuple9<T1, T2, T3, T4, T5, T6, T7, T8, T9>) => Tuple9<T1, T2, T3, T4, T5, T6, T7, T8, T9>;
     min: (other: Tuple9<T1, T2, T3, T4, T5, T6, T7, T8, T9>) => Tuple9<T1, T2, T3, T4, T5, T6, T7, T8, T9>;
-    toString: () => string;
+    isDisplay: boolean;
+    display: () => string;
 }
-export declare class Tuple10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> implements Ord<Tuple10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>> {
+export declare class Tuple10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> implements Ord<Tuple10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>>, Display {
     readonly _1: T1;
     readonly _2: T2;
     readonly _3: T3;
@@ -169,7 +177,8 @@ export declare class Tuple10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> implements
     gt: (other: Tuple10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>) => boolean;
     max: (other: Tuple10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>) => Tuple10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>;
     min: (other: Tuple10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>) => Tuple10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>;
-    toString: () => string;
+    isDisplay: boolean;
+    display: () => string;
 }
 export declare const tuple2: <T1, T2>(t1: T1, t2: T2) => Tuple2<T1, T2>;
 export declare const tuple3: <T1, T2, T3>(t1: T1, t2: T2, t3: T3) => Tuple3<T1, T2, T3>;

@@ -1,5 +1,5 @@
-import { tuple2, Tuple2 } from "../collections/lib"
-import { range } from "../util/lib"
+import { tuple2, Tuple2 } from "../collections"
+import { range } from "../util"
 
 declare global {
     interface Array<T> {

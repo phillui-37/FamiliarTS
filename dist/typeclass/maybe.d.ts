@@ -1,5 +1,6 @@
-import { Tuple2 } from "../collections/tuple";
-declare type IMaybe<T> = {
+import { Display } from "../basic";
+import { Tuple2 } from "../collections";
+declare type IMaybe<T> = Display & {
     isJust: boolean;
     isNothing: boolean;
     get(): T;
@@ -23,22 +24,23 @@ export declare class Just<T> implements IMaybe<T> {
     constructor(t: T);
     map: <U>(fn: (t: T) => U) => Maybe<U>;
     replace: <U>(u: U) => Maybe<U>;
-    apply: <R, U>(mr: IMaybe<R>) => IMaybe<U>;
+    apply: <R, U>(mr: IMaybe<R>) => Maybe<U>;
     discardSelf: <U>(other: IMaybe<U>) => IMaybe<U>;
     discardOther: <U>(other: IMaybe<U>) => this;
     or: (other: IMaybe<T>) => this;
     bind: <U>(fn: (t: T) => IMaybe<U>) => IMaybe<U>;
     and: <U>(other: IMaybe<U>) => IMaybe<U>;
-    xor: (other: IMaybe<T>) => IMaybe<T> | Nothing;
+    xor: (other: IMaybe<T>) => Maybe<T>;
     orElse: (getOther: () => IMaybe<T>) => this;
-    filter: (predicate: (t: T) => boolean) => IMaybe<T>;
-    zip: <U>(other: IMaybe<U>) => IMaybe<Tuple2<T, U>>;
+    filter: (predicate: (t: T) => boolean) => Maybe<T>;
+    zip: <U>(other: IMaybe<U>) => Maybe<Tuple2<T, U>>;
     isJust: boolean;
     isNothing: boolean;
     get: () => T;
     getOr: (fallback: T) => T;
     getOrElse: (getFallback: () => T) => T;
-    toString: () => string;
+    isDisplay: boolean;
+    display: () => string;
 }
 export declare class Nothing implements IMaybe<any> {
     private constructor();
@@ -53,14 +55,15 @@ export declare class Nothing implements IMaybe<any> {
     and: <U>(other: IMaybe<U>) => this;
     xor: <T>(other: IMaybe<T>) => IMaybe<T>;
     orElse: <T>(getOther: () => IMaybe<T>) => IMaybe<T>;
-    filter: (predicate: (t: any) => boolean) => this;
+    filter: <T>(predicate: (t: T) => boolean) => this;
     zip: <U>(other: IMaybe<U>) => this;
     isJust: boolean;
     isNothing: boolean;
     get: () => never;
     getOr: <T>(fallback: T) => T;
     getOrElse: <T>(getFallback: () => T) => T;
-    toString: () => string;
+    isDisplay: boolean;
+    display: () => string;
 }
 export declare type Maybe<T> = Just<T> | Nothing;
 export declare const nothing: Nothing;
