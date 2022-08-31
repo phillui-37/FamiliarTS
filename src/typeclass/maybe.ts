@@ -7,18 +7,13 @@ type IMaybe<T> = Display & {
   get(): T
   getOr(fallback: T): T
   getOrElse(getFallback: () => T): T
-  // Functor
   map<U>(fn: (t:T) => U): IMaybe<U>
   replace<U>(u: U): IMaybe<U>
-  // Applicative
   apply<R, U>(mr: IMaybe<R>): IMaybe<U>
   discardSelf<U>(other: IMaybe<U>): IMaybe<U>
   discardOther<U>(other: IMaybe<U>): IMaybe<T>
-  // Alternative
   or(other: IMaybe<T>): IMaybe<T>
-  // Monad
   bind<U>(fn: (t: T) => IMaybe<U>): IMaybe<U>
-  // other
   and<U>(other: IMaybe<U>): IMaybe<U>
   xor(other: IMaybe<T>): IMaybe<T>
   orElse(getOther: () => IMaybe<T>): IMaybe<T>

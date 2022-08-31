@@ -1,6 +1,6 @@
 # FaimilarTS
 ## Introduction
-A Typescript library to provide different functional utilities.
+A Typescript library to provide different functional utilities. This library is inspired by Rust and Haskell.
 
 ## Structure
 - collections: immutable collections including
@@ -13,6 +13,8 @@ A Typescript library to provide different functional utilities.
   - Reader
   - Writer
   - Lens
+  - State
+- transformer: type conversion tools
 - util: simple utility functions
 - stdExt: Javascript extension
 - basic: basic types and related utils
