@@ -19,3 +19,18 @@ export declare type Ord<T> = Eq<T> & {
     max: (other: T) => T
     min: (other: T) => T
 }
+
+export enum PrimitiveType {
+    // js primitive
+    Boolean = 'boolean',
+    Function = 'function',
+    Number = 'number',
+    String = 'string',
+    BigInt = 'bigint',
+    Object = 'object',
+    Symbol = 'symbol',
+    Undefined = 'undefined',
+    // self defined extended primitive
+    Null = 'null',
+    Array = 'array',
+}
