@@ -16,3 +16,15 @@ export declare type Ord<T> = Eq<T> & {
     max: (other: T) => T;
     min: (other: T) => T;
 };
+export declare enum PrimitiveType {
+    Boolean = "boolean",
+    Function = "function",
+    Number = "number",
+    String = "string",
+    BigInt = "bigint",
+    Object = "object",
+    Symbol = "symbol",
+    Undefined = "undefined",
+    Null = "null",
+    Array = "array"
+}

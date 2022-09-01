@@ -11,6 +11,8 @@ class Just {
         this.apply = (mr) => {
             if (typeof this.t !== 'function')
                 throw new TypeError("apply not applicable");
+            if (mr.isNothing)
+                return exports.nothing;
             return (0, exports.just)(this.t(mr.get()));
         };
         this.discardSelf = (other) => other;

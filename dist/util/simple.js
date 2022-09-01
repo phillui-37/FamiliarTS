@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.constant = exports.flip = void 0;
-const flip = (fn) => (u) => (t) => fn(t, u);
-exports.flip = flip;
+exports.id = exports.constant = void 0;
 const constant = (value) => (_) => value;
 exports.constant = constant;
+const id = (t) => t;
+exports.id = id;
