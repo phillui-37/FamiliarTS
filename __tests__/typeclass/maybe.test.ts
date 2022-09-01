@@ -61,16 +61,6 @@ describe('method test', () => {
     expect(nothing.replace(1).display()).toBe(nothing.display())
   })
 
-  test('apply', () => {
-    // just
-    const fn = (v: number) => v+1
-    expect(just(fn).apply(just(1)).display()).toBe(just(2).display())
-    expect(() => just(1).apply(just(1))).toThrow(TypeError)
-
-    // nothing
-    expect(nothing.apply(just(1)).display()).toBe(nothing.display())
-  })
-
   test('discardSelf', () => {
     expect(just(1).discardSelf(just('')).display()).toBe(just('').display())
     expect(just(1).discardSelf(nothing).display()).toBe(nothing.display())

@@ -1,4 +1,4 @@
-import '../../src'
+import '../../src/stdExt'
 
 describe('test string extension function', () => {
   test('replace all', () => {

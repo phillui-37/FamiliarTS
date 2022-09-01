@@ -1,41 +1,106 @@
 import { Display } from "../basic";
 
+type TRightChange<L, R, R2> = ThisType<L & R> extends Right<R> ? Right<R2> : Left<L>
+type TLeftChange<L, L2, R> = ThisType<L & R> extends Left<L> ? Left<L2> : Right<R>
+
 type IEither<L, R> = Display & {
   isLeft: boolean
   isRight: boolean
-  mapRight<U>(fn: (_: R) => U): IEither<L, U>
-  mapRightOr<U>(fallback: U, fn: (_: R) => U): IEither<L, U>
-  mapRightOrElse<U>(getFallback: (_: L) => U, fn: (_: R) => U): IEither<L, U>
-  mapLeft<U>(fn: (_: L) => U): IEither<U, R>
-  mapLeftOr<U>(fallback: U, fn: (_: L) => U): IEither<U, R>
-  mapLeftOrElse<U>(getFallback: (_: R) => U, fn: (_: L) => U): IEither<U, R>
-  applyLeft<T, U>(mt: IEither<T, R>): IEither<U, R>
-  applyRight<T, U>(mt: IEither<L, T>): IEither<L, U>
-  expectLeft(msg: string): L | never
+
+  mapRight<U>(fn: (_: R) => U): TRightChange<L, R, U>
+  mapRightOr<U>(fallback: U, fn: (_: R) => U): U
+  mapRightOrElse<U>(getFallback: (_: L) => U, fn: (_: R) => U): U
   expectRight(msg: string): R | never
-  getLeft(): L | never
-  getLeftOr(fallback: L): L
-  getLeftOrElse(fn: (_: R) => L): L
   getRight(): R | never
   getRightOr(fallback: R): R
   getRightOrElse(fn: (_: L) => R): R
-  andRight<U>(other: IEither<L, U>): IEither<L, U>
-  andLeft<U>(other: IEither<U, R>): IEither<U, R>
-  flatMapRight<U>(fn: (_: R) => IEither<L, U>): IEither<L, U>
-  flatMapLeft<U>(fn: (_: L) => IEither<U, R>): IEither<U, R>
-  orLeft<U>(other: IEither<L, U>): IEither<L, U>
-  orLeftElse<U>(fn: (_: R) => IEither<L, U>): IEither<L, U>
-  orRight<U>(other: IEither<U, R>): IEither<U, R>
-  orRightElse<U>(fn: (_: L) => IEither<U, R>): IEither<U, R>
+  andRight<U>(other: IEither<L, U>): TRightChange<L, R, U>
+  flatMapRight<U>(fn: (_: R) => IEither<L, U>): TRightChange<L, R, U>
+  orRight<U>(other: IEither<U, R>): TLeftChange<L, U, R>
+  orRightElse<U>(fn: (_: L) => IEither<U, R>): TLeftChange<L, U, R>
+
+  mapLeft<U>(fn: (_: L) => U): TLeftChange<L, U, R>
+  mapLeftOr<U>(fallback: U, fn: (_: L) => U): U
+  mapLeftOrElse<U>(getFallback: (_: R) => U, fn: (_: L) => U): U
+  expectLeft(msg: string): L | never
+  getLeft(): L | never
+  getLeftOr(fallback: L): L
+  getLeftOrElse(fn: (_: R) => L): L
+  andLeft<U>(other: IEither<U, R>): TLeftChange<L, U, R>
+  flatMapLeft<U>(fn: (_: L) => IEither<U, R>): TLeftChange<L, U, R>
+  orLeft<U>(other: IEither<L, U>): TRightChange<L, R, U>
+  orLeftElse<U>(fn: (_: R) => IEither<L, U>): TRightChange<L, R, U>
 }
 
-class Left<L> implements IEither<L, any> {
+export class Left<L> implements IEither<L, any> {
+  constructor(readonly value: L) { }
 
+  isDisplay = true
+  display = () => `Left(${this.value})`
+
+  isLeft = true
+  isRight = false
+
+  mapRight<U>(fn: (_: any) => U) { return this }
+  mapRightOr<U>(fallback: U, fn: (_: any) => U) { return fallback }
+  mapRightOrElse<U>(getFallback: (_: L) => U, fn: (_: any) => U) { return getFallback(this.value) }
+  expectRight(msg: string) { throw new Error(msg) }
+  getRight() { throw new Error("cannot getRight from Left") }
+  getRightOr<U>(fallback: U) { return fallback }
+  getRightOrElse<U>(fn: (_: L) => U) { return fn(this.value) }
+  andRight<U>(other: IEither<L, U>) { return this }
+  flatMapRight<U>(fn: (_: any) => IEither<L, U>) { return this }
+  orRight<U>(other: IEither<U, any>): Right<any> {
+    throw new Error("Method not implemented.");
+  }
+  orRightElse<U>(fn: (_: L) => IEither<U, any>): Right<any> {
+    throw new Error("Method not implemented.");
+  }
+
+  mapLeft<U>(fn: (_: L) => U): Right<any> {
+    throw new Error("Method not implemented.");
+  }
+  mapLeftOr<U>(fallback: U, fn: (_: L) => U): U {
+    throw new Error("Method not implemented.");
+  }
+  mapLeftOrElse<U>(getFallback: (_: any) => U, fn: (_: L) => U): U {
+    throw new Error("Method not implemented.");
+  }
+  expectLeft(msg: string): L {
+    throw new Error("Method not implemented.");
+  }
+  getLeft(): L {
+    throw new Error("Method not implemented.");
+  }
+  getLeftOr(fallback: L): L {
+    throw new Error("Method not implemented.");
+  }
+  getLeftOrElse(fn: (_: any) => L): L {
+    throw new Error("Method not implemented.");
+  }
+  andLeft<U>(other: IEither<U, any>): Right<any> {
+    throw new Error("Method not implemented.");
+  }
+  flatMapLeft<U>(fn: (_: L) => IEither<U, any>): Right<any> {
+    throw new Error("Method not implemented.");
+  }
+  orLeft<U>(other: IEither<L, U>): Left<L> {
+    throw new Error("Method not implemented.");
+  }
+  orLeftElse<U>(fn: (_: any) => IEither<L, U>): Left<L> {
+    throw new Error("Method not implemented.");
+  }
 }
 
-class Right<R> implements IEither<any, R> {
-
+export class Right<R> implements IEither<any, R> {
+  constructor(readonly value: R) { }
 }
 
-// TODO
-// type Either<L, R> = Left<L> | Right<R>
+export type Either<L, R> = Left<L> | Right<R>
+
+namespace Either {
+  export function left<L>(l: L) { return new Left(l) }
+  export function right<R>(r: R) { return new Right(r) }
+  export function isLeft<L, R>(e: Either<L, R>): e is Left<L> { return e.isLeft }
+  export function isRight<L, R>(e: Either<L, R>): e is Right<R> { return e.isRight }
+}
