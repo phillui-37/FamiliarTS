@@ -16,8 +16,8 @@ type IEither<L, R> = Display & {
   getRightOrElse(fn: (_: L) => R): R
   andRight<U>(other: IEither<L, U>): TRightChange<L, R, U>
   flatMapRight<U>(fn: (_: R) => IEither<L, U>): TRightChange<L, R, U>
-  orRight<U>(other: IEither<U, R>): TLeftChange<L, U, R>
-  orRightElse<U>(fn: (_: L) => IEither<U, R>): TLeftChange<L, U, R>
+  orRight(other: IEither<L, R>): IEither<L, R>
+  orRightElse(fn: (_: L) => IEither<L, R>): IEither<L, R>
 
   mapLeft<U>(fn: (_: L) => U): TLeftChange<L, U, R>
   mapLeftOr<U>(fallback: U, fn: (_: L) => U): U
@@ -28,8 +28,8 @@ type IEither<L, R> = Display & {
   getLeftOrElse(fn: (_: R) => L): L
   andLeft<U>(other: IEither<U, R>): TLeftChange<L, U, R>
   flatMapLeft<U>(fn: (_: L) => IEither<U, R>): TLeftChange<L, U, R>
-  orLeft<U>(other: IEither<L, U>): TRightChange<L, R, U>
-  orLeftElse<U>(fn: (_: R) => IEither<L, U>): TRightChange<L, R, U>
+  orLeft(other: IEither<L, R>): IEither<L, R>
+  orLeftElse(fn: (_: R) => IEither<L, R>): IEither<L, R>
 }
 
 export class Left<L> implements IEither<L, any> {
@@ -42,19 +42,19 @@ export class Left<L> implements IEither<L, any> {
   isRight = false
 
   mapRight<U>(fn: (_: any) => U) { return this }
-  mapRightOr<U>(fallback: U, fn: (_: any) => U) { return fallback }
+  mapRightOr<R, U>(fallback: U, fn: (_: R) => U) { return fallback }
   mapRightOrElse<U>(getFallback: (_: L) => U, fn: (_: any) => U) { return getFallback(this.value) }
   expectRight(msg: string) { throw new Error(msg) }
   getRight() { throw new Error("cannot getRight from Left") }
   getRightOr<U>(fallback: U) { return fallback }
   getRightOrElse<U>(fn: (_: L) => U) { return fn(this.value) }
   andRight<U>(other: IEither<L, U>) { return this }
-  flatMapRight<U>(fn: (_: any) => IEither<L, U>) { return this }
-  orRight<U>(other: IEither<U, any>): Right<any> {
-    throw new Error("Method not implemented.");
+  flatMapRight<R, U>(fn: (_: R) => IEither<L, U>) { return this }
+  orRight<U>(other: IEither<L, U>): Right<U> {
+    
   }
-  orRightElse<U>(fn: (_: L) => IEither<U, any>): Right<any> {
-    throw new Error("Method not implemented.");
+  orRightElse<U>(fn: (_: L) => Right<any>): Right<U> {
+    
   }
 
   mapLeft<U>(fn: (_: L) => U): Right<any> {
