@@ -15,8 +15,8 @@ describe('test array extension function', () => {
   })
 
   test('zip', () => {
-    expect(['a', 'b', 'c'].zip([1,2,3])).toEqual([tuple2('a', 1), tuple2('b', 2), tuple2('c', 3)])
-    expect([1,2,3].zip(['a', 'b'])).toEqual([tuple2(1, 'a'), tuple2(2, 'b')])
+    expect(['a', 'b', 'c'].zip([1,2,3]).map(x => x.display())).toEqual([tuple2('a', 1), tuple2('b', 2), tuple2('c', 3)].map(x => x.display()))
+    expect([1,2,3].zip(['a', 'b']).map(x => x.display())).toEqual([tuple2(1, 'a'), tuple2(2, 'b')].map(x => x.display()))
     expect([1,2,3].zip([])).toEqual([])
   })
 
