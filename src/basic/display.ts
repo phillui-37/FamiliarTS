@@ -13,6 +13,8 @@ export namespace Display {
    * generic toString handler
    */
   export const display = (obj: any): string => {
+    if (obj === undefined) return 'undefined'
+    if (obj === null) return 'null'
     if (Array.isArray(obj))
       return `[${obj.reduce((acc, item) => acc ? `${acc},${display(item)}` : display(item), '')}]`
     if (typeof obj === 'string')
