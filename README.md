@@ -1,5 +1,5 @@
 # FaimilarTS
-![Build](https://github.com/phillui-37/FamiliarTS/actions/workflows/cicd.yaml/badge.svg)
+![Build](https://github.com/phillui-37/FamiliarTS/actions/workflows/test.yaml/badge.svg)
 ## Introduction
 A Typescript library to provide different functional utilities. This library is inspired by Rust and Haskell.
 
