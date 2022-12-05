@@ -1,5 +1,4 @@
 import { Eq, Ord } from "./typing";
-import '../stdExt/array'
 
 const _fnTypeChecker = (obj: any, paramLength: number = 1) => typeof obj === 'function' && obj.length === paramLength
 
@@ -18,5 +17,5 @@ export function isOrd<T>(obj: any): obj is Ord<T> {
         obj.gt,
         obj.max,
         obj.min
-    ].all(_fnTypeChecker)
+    ].map(it => !_fnTypeChecker(it)).length === 0
 }
