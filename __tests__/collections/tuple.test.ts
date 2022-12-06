@@ -1,4 +1,4 @@
-import { Ordering, Tuple10, tuple10, Tuple2, tuple2, Tuple3, tuple3, Tuple4, tuple4, Tuple5, tuple5, Tuple6, tuple6, Tuple7, tuple7, tuple8, Tuple8, tuple9, Tuple9 } from "../../src"
+import { Tuple10, tuple10, Tuple2, tuple2, Tuple3, tuple3, Tuple4, tuple4, Tuple5, tuple5, Tuple6, tuple6, Tuple7, tuple7, tuple8, Tuple8, tuple9, Tuple9 } from "../../src"
 
 describe('test tuple create', () => {
     test('tuple2', () => {
@@ -63,52 +63,4 @@ describe('test tuple eq', () => {
                 .eq(new Tuple10(1, 'a', true, JSON.stringify([]), false, undefined, null, 1E10, fn, JSON.stringify({})))
         ).toBeTruthy()
     })
-})
-
-describe('test tuple ord', () => {
-    test('tuple2 compare', () => {
-        expect(tuple2(1,2).compare(tuple2(1, 2))).toBe(Ordering.EQ)
-        expect(tuple2(1,3).compare(tuple2(1, 2))).toBe(Ordering.GT)
-        expect(tuple2(1,1).compare(tuple2(1, 2))).toBe(Ordering.LT)
-        expect(tuple2(0,4).compare(tuple2(1, 2))).toBe(Ordering.LT)
-        expect(tuple2(2,1).compare(tuple2(1, 2))).toBe(Ordering.GT)
-        expect(tuple2('a', null).compare(tuple2('z', null))).toBe(Ordering.LT)
-        expect(tuple2('z', null).compare(tuple2('a', null))).toBe(Ordering.GT)
-        expect(tuple2(null, null).compare(tuple2(null, null))).toBe(Ordering.EQ)
-    })
-    test('tuple2 lt le ge gt', () => {
-        expect(tuple2(1,2).lt(tuple2(1,2))).toBeFalsy()
-        expect(tuple2(1,2).le(tuple2(1,2))).toBeTruthy()
-        expect(tuple2(1,2).ge(tuple2(1,2))).toBeTruthy()
-        expect(tuple2(1,2).gt(tuple2(1,2))).toBeFalsy()
-
-        expect(tuple2(1,2).lt(tuple2(1,0))).toBeFalsy()
-        expect(tuple2(1,2).le(tuple2(1,0))).toBeFalsy()
-        expect(tuple2(1,2).ge(tuple2(1,0))).toBeTruthy()
-        expect(tuple2(1,2).gt(tuple2(1,0))).toBeTruthy()
-
-        expect(tuple2(1,2).lt(tuple2(1,3))).toBeTruthy()
-        expect(tuple2(1,2).le(tuple2(1,3))).toBeTruthy()
-        expect(tuple2(1,2).ge(tuple2(1,3))).toBeFalsy()
-        expect(tuple2(1,2).gt(tuple2(1,3))).toBeFalsy()
-    
-        expect(tuple2(1,2).lt(tuple2(2,2))).toBeTruthy()
-        expect(tuple2(1,2).le(tuple2(2,2))).toBeTruthy()
-        expect(tuple2(1,2).ge(tuple2(2,2))).toBeFalsy()
-        expect(tuple2(1,2).gt(tuple2(2,2))).toBeFalsy()
-
-        expect(tuple2(1,2).lt(tuple2(0,0))).toBeFalsy()
-        expect(tuple2(1,2).le(tuple2(0,0))).toBeFalsy()
-        expect(tuple2(1,2).ge(tuple2(0,0))).toBeTruthy()
-        expect(tuple2(1,2).gt(tuple2(0,0))).toBeTruthy()
-    })
-
-    test('tuple2 max min', () => {
-        expect(tuple2(1,2).max(tuple2(2,3)).toString()).toBe(tuple2(2,3).toString())
-        expect(tuple2(1,2).min(tuple2(2,3)).toString()).toBe(tuple2(1,2).toString())
-        expect(tuple2(1,2).max(tuple2(1,3)).toString()).toBe(tuple2(1,3).toString())
-        expect(tuple2(1,2).min(tuple2(1,3)).toString()).toBe(tuple2(1,2).toString())
-    })
-
-    test('tuple3-10 ord is similar to tuple2, bypass', () => {})
 })
