@@ -8,6 +8,6 @@ Collection support: [immutable-js](https://github.com/immutable-js/immutable-js/
 ## Structure
 - collections: immutable collections besides **immutable-js** provided including
   - Tuple
-- transformer: type conversion tools
 - util: simple utility functions
 - basic: basic types and related utils
+- par_com: parser combinator tools, provide EBNF parsing ability out of box

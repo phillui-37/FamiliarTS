@@ -9,6 +9,10 @@ var Display;
         return obj.isDisplay === true && typeof obj.display === 'function' && obj.display.length === 0;
     };
     Display.display = (obj) => {
+        if (obj === undefined)
+            return 'undefined';
+        if (obj === null)
+            return 'null';
         if (Array.isArray(obj))
             return `[${obj.reduce((acc, item) => acc ? `${acc},${Display.display(item)}` : Display.display(item), '')}]`;
         if (typeof obj === 'string')

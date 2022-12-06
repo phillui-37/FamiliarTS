@@ -12,7 +12,8 @@
   "keywords": [
     "FP",
     "typescript",
-    "TS"
+    "TS",
+    "ParserCombinator"
   ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
